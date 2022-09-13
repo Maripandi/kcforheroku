@@ -1,0 +1,143 @@
+{% extends 'base/pageheader.html' %}
+
+{% load static %}
+{% block title %} | blog | our projects{% endblock title %}
+{% block page_header %} Our Recent project updates are here{% endblock page_header %}
+{% block page_header_name %} blogger{% endblock page_header_name %}
+{% block content2 %}
+
+
+{% include 'base/msg.html' %}
+<!-- Projects Start -->
+<div class="container-xxl py-5">
+
+
+  
+
+  {% for j in data %}
+  <!-- Modal -->
+    <div class="modal fade" id="exampleModal{{ j.id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{ j.id }}" aria-hidden="true">
+        <div class="modal-dialog modal-fullscreen" role="document">
+            <div class="modal-content">
+
+                
+                
+                <div class="modal-body">
+                    <img src="{{ j.site_pic.url }}" class="img-responsive rounded" style="width: 100%;" />
+                    
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endfor %}
+
+
+
+
+   
+    
+
+  <div class="container">
+
+    {% if user.is_authenticated %}
+
+    <div class="row justify-content-center align-items-center g-2 border border-warning">
+        <h3 class="h3 text-center text-danger">**important**</h3><hr>
+        <div class="col-4">
+            <img class="img-thumbnail" src="{% static 'asserts/img/4x3image.jpg' %}" alt="3:4">
+        </div><br/>
+        <div class="col-8 ">
+            <h4 class="h5 text-warning"> &nbsp;* While uploading <b>Project pictures</b> please make sure your picture should be is <b>4:3</b> in landscape. 
+                <br>&nbsp;* If not please crop it for better viewing Experience...</h5><br>
+            <h3 class="text-center text-warning"> Thank you !! </h3>
+        </div>
+        
+    </div><br/>
+    <br/>
+            
+        {% include 'blogpost.html' %}
+    {% else %}
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Our Projects</h6>
+            <h1 class="mb-4">Visit Our Latest Solar And Renewable Energy Projects</h1>
+        </div>
+    {% endif %} 
+      
+      <div class="row mt-n2 wow fadeInUp" data-wow-delay="0.3s">
+          <div class="col-12 text-center">
+              <ul class="list-inline mb-5" id="portfolio-flters">
+                  <li class="mx-2 active" data-filter="*">All</li>
+                  {% for i in data3  %}
+                        <li class="mx-2" data-filter=".first{{ i.id }}">{{ i.pname }}</li>
+                  {% endfor %}
+                  {% comment %} <li class="mx-2" data-filter=".first">Solar Panels</li>
+                  <li class="mx-2" data-filter=".second">Wind Turbines</li>
+                  <li class="mx-2" data-filter=".third">Hydropower Plants</li> {% endcomment %}
+              </ul>
+          </div>
+      </div>
+      <div class="row portfolio-container" data-wow-delay="0.5s">
+
+        {% for i in data %}
+          <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first{{ i.category.project.id }}" data-wow-delay="0.{{ forloop.counter }}s"> 
+              <div class="portfolio-img rounded overflow-hidden"><span class="float-end">Dated on {{ i.created_at }}</span>
+                  <img class="img-fluid" src="{{ i.site_pic.url }}" alt="">
+                  <div class="portfolio-btn">
+                      <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" data-toggle="modal" data-target="#exampleModal{{ i.id }}" href=""><i class="fa fa-eye"></i></a>
+                    {% if user.role == "ADMIN" %}
+                        <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="{% url 'delblog' i.id %}" onclick="return confirm('Are you surly want to remove {{ i.title }}' )" ><i class="fa fa-trash"></i></a>
+                    {% endif %}
+
+                      
+                      <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="{% url 'blogview' i.category.id  %}"><i class="fa fa-link"></i></a>
+                  </div>
+              </div>
+              <div class="pt-3">
+                  <p class="text-primary mb-0">  {{ i.category }} </p>
+                  <hr class="text-primary w-50">
+                  <h5 class="lh-base">{{ i.title }}</h5>
+              </div>
+          </div>
+          {% endfor %}
+          
+       
+
+  
+           {% comment %} <div class="col-lg-4 col-md-6 portfolio-item third">
+              <div class="portfolio-img rounded overflow-hidden">
+                  <img class="img-fluid" src="{% static 'asserts/img/img-600x400-1.jpg' %}" alt="">
+                  <div class="portfolio-btn">
+                      <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="{% static 'asserts/img/img-600x400-1.jpg' %}" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
+                      <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
+                  </div>
+              </div>
+              <div class="pt-3">
+                  <p class="text-primary mb-0">Hydropower Plants</p>
+                  <hr class="text-primary w-25 my-2">
+                  <h5 class="lh-base">We Are pioneers of solar & renewable energy industry</h5>
+              </div>
+          </div>  {% endcomment %}
+      </div>
+  </div>
+</div><br>
+<br>
+<br>
+<br>
+
+<!-- Projects End -->
+
+
+      
+
+     
+
+      
+         
+
+
+
+{% endblock content2%}

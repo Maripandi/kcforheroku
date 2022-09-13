@@ -1,0 +1,115 @@
+{% extends 'users/admin/admin_home.html' %}
+{% load static %}
+{% block content4 %}
+
+
+  <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enter New Admin Details here</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='{% url 'admins' %}' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>{{ data3.username.label_tag }} {{ data3.username }}</p>
+                            <p>{{ data3.email.label_tag }} {{ data3.email }}</p>
+                            <p>{{ data3.first_name.label_tag }} {{ data3.first_name }}</p>
+                            <p>{{ data3.last_name.label_tag }} {{ data3.last_name }}</p>
+                            <p>{{ data3.password1.label_tag }} {{ data3.password1 }}</p>
+                            <p>{{ data3.password2.label_tag }} {{ data3.password2 }}</p>
+                            <p>{{ data3.admin_phon.label_tag }} {{ data3.admin_phon }}</p>
+
+                        </div>
+                        <div class="col-md-6">
+                           
+                            <p>{{ data3.admin_address.label_tag }} {{ data3.admin_address }}</p>
+                            <p>{{ data3.profile_pic.label_tag }} {{ data3.profile_pic}}</p>
+                            <h5 class="h5 text-center">**important**</h5>
+                            <img class="img-fluid" src="{% static 'asserts/img/3x4image.jpg' %}" alt="3:4">
+                            <p> &nbsp;* 'While uploading <b>Proile pictures</b> please make sure your picture should be is <b>3:4</b> in portrait.
+                            <br>&nbsp;* If not please crop it for better viewing Experience...</p>
+                            <p class="text-center"> Thank you !! </p>
+                        </div>  
+                    </div>
+                    <div class="row my-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Team Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Team Member</h6>
+            
+            
+              
+            <h1 class="mb-4">Experienced Team Admins</h1><!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add new Admin
+            </button>
+        </div>
+        <div class="row g-4">
+            {% for i in data %}
+
+            <div class="col-lg-4 col-md-6 mx-auto wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                <div class="team-item rounded overflow-hidden">
+                    <div class="d-flex">
+                        <img class="img-fluid w-75" src="{{ i.profile_pic.url }}" alt="">
+                        <div class="team-social w-25">
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg-square btn-outline-info rounded-circle mt-3" href=""><i class="bi bi-pencil"></i></a>
+                            <a class="btn btn-lg-square btn-outline-danger rounded-circle mt-3" href="{% url 'deladmins' i.user.id %}" onclick="return confirm('Are you surly want to remove {{ i.user.username }}' )"><i class="fa fa-trash"></i></a>
+                            
+                           
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h5>{{ i.user.first_name }} {{i.user.last_name }} - <span>{{ i.user.username }}</span></h5>
+                        <span>Designation : xyz</span><br>
+                        <span>Phone Number : {{ i.admin_phon }}</span>
+                        <pre>Address :{{ i.admin_address }}</pre>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            
+            
+            
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+
+
+
+<script>
+    const nodes = document.querySelectorAll('.amt');
+    const arr = Array.from(nodes);
+    const res = arr.reduce((acc,curr) => {
+        return acc += Number(curr.textContent)
+    }, 0);
+    document.getElementById("net").innerHTML="Rs : "+res;
+</script>
+
+    
+</div>{% endblock content4 %}

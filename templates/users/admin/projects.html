@@ -1,0 +1,158 @@
+{% extends 'users/admin/admin_home.html' %}
+{% load static %}
+{% block content4 %}
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Employee Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="{% url 'projectcategories' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            
+                        
+                        {{ d2.as_p }}
+                        </div>
+                        <div class="col-md-6">
+                           
+                            <h5 class="h5 text-center">**important**</h5>
+                            <img class="img-fluid" src="{% static 'asserts/img/4x3image.jpg' %}" alt="3:4">
+                            <p> &nbsp;* 'While uploading <b>Project pictures</b> please make sure your picture should be is <b>4:3</b> in landscape. <br>&nbsp;* If not please crop it for better viewing Experience...</p>
+                            <p class="text-center"> Thank you !! '</p>
+                            
+                                
+                                   
+
+                        </div>  
+                    </div>
+                    <div class="row my-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Team Start -->
+<div class="container-xxl py-5">
+    <div class="container wow fadeInUp">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Projects</h6>
+            
+            
+            <h1 class="mb-4">Here you can add your projects this can appear to your main page also</h1>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add new Project
+            </button>  
+            
+                
+        </div>
+
+
+        <div class="row g-4" data-wow-delay="0.5s">
+            {% for i in d1 %}
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="{{ i.ppic.url }}" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="{{ i.icon }} fa-4x"></i>
+                        </div>
+                        <h4 class="mb-3">{{ i.pname }}</h4>
+                        <p>{{ i.pdescription }}</p>
+                        <a href="{% url 'deleteprojectcategory' i.id %}" onclick="return confirm('Are you surly want to remove {{ i.pname }}' )" class="btn btn-danger">Delete</a>
+                  <a href="{% url 'editprojectcategories' i.id %}" class="btn btn-info"> Change </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+                <div class="service-item rounded overflow-hidden">
+                    <img class="img-fluid" src="{% static 'asserts/img/img-600x400-5.jpg' %}" alt="">
+                    <div class="position-relative p-4 pt-0">
+                        <div class="service-icon">
+                            <i class="fa fa-wind fa-3x"></i>
+                        </div>
+                        <h4 class="mb-3">Example Project</h4>
+                        <p>This project won't appear on your home or any other pages</p>
+                        <a class="small fw-medium" href="">Read More<i class="fa fa-arrow-right ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <hr>
+        <div class="row g-4">
+
+            <div class="table-responsive wow fadeInUp">
+                <h1>ICONs Code</h1>
+                <table class="table table-primary">
+                    <thead>
+                        <tr>
+                            <th scope="col">icons</th><th scope="col">icon code</th><th scope="col">icons</th><th scope="col">icon code</th><th scope="col">icons</th><th scope="col">icon code</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="">
+                            <td scope="row"><i class="fa fa-lightbulb fa-3x"></i></td><td>fa fa-lightbulb</td>
+                            <td scope="row"><i class="fa fa-wind fa-3x"></i></td><td>fa fa-wind</td>
+                            <td scope="row"><i class="far fa-building fa-3x"></i></td><td>far fa-building</td>
+
+                        </tr>
+                        <tr class="">
+                            <td scope="row"><i class="fas fa-project-diagram fa-3x"></i></td><td>fas fa-project-diagram</td>
+                            <td scope="row"><i class="fas fa-bath fa-3x"></i></td><td>fas fa-bath</td>
+                            <td scope="row"><i class="fa fa-tint fa-3x"></i></td><td>fa fa-tint</td>
+                        </tr>
+                        <tr class="">
+                            <td scope="row"><i class="fa fa-solar-panel fa-3x"></i></td><td>fa fa-solar-panel</td>
+                            <td scope="row"><i class="fa fa-life-ring fa-3x"></i></td><td>fa fa-life-ring</td>
+                            <td scope="row"><i class="fa fa-code-fork fa-3x"></i></td><td>fa fa-code-fork</td>
+                        </tr>
+                        <tr class="">
+                            <td scope="row"><i class="fa-solid fa-wand-magic-sparkles fa-3x"></i></td><td>fa-solid fa-wand-magic-sparkles</td>
+                            <td scope="row"><i class="fa fa-first-order fa-3x"></i></td><td>fa fa-first-order</td>
+                            <td scope="row"><i class="fa-solid fa-filter fa-3x"></i></td><td>fa-solid fa-filter</td>
+                        </tr>
+                        <tr class="">
+                            <td scope="row"><i class="fa-solid fa-shop fa-3x"></i></td><td>fa-solid fa-shop</td>
+                            <td scope="row"><i class="fa-solid fa-trowel-bricks fa-3x"></i></td><td>fa-solid fa-trowel-bricks</td>
+                            <td scope="row"><i class="bi bi-building fa-3x"></i></td><td>bi bi-building</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <a class="wow fadeInUp" href="https://fontawesome.com/v4/icons/">for more icons - click here...</a>
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+
+
+<script>
+    const nodes = document.querySelectorAll('.amt');
+    const arr = Array.from(nodes);
+    const res = arr.reduce((acc,curr) => {
+        return acc += Number(curr.textContent)
+    }, 0);
+    document.getElementById("net").innerHTML="Rs : "+res;
+</script>
+{% endblock content4 %}

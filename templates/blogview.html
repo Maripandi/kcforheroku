@@ -1,0 +1,95 @@
+{% extends 'base/pageheader.html' %}
+
+{% load static %}
+
+{% block title %} | blog | our projects{% endblock title %}
+{% block page_header %} Project Update | {{ data2 }}{% endblock page_header %}
+{% block page_header_name %} blogger{% endblock page_header_name %}
+{% block content2 %}
+
+
+{% include 'base/msg.html' %}
+
+
+
+<!-- Projects Start -->
+<h4 class="text-primary text-center">{{ data2 }} - Project Updates</h4>
+
+{% for j in data %}
+
+
+  <div class="container-fluid bg-light overflow-hidden wow fadeInUp my-1 px-lg-0">
+    <div class="container about px-lg-0">
+        <div class="row g-0 mx-lg-0">
+          {% if forloop.counter|divisibleby:'2' %}
+            <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <img class="position-absolute img-fluid w-100 h-100" src="{{ j.site_pic.url }}" style="object-fit: cover;" alt="">
+                </div>
+            </div>
+            <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
+              
+                <div class="p-lg-5 pe-lg-0">
+                    
+                    <h1 class="mb-4">{{ j.title }}</h1>
+                    <p>{{ j.updates }}</p>
+                    <p><i class="fa fa-check-circle text-primary me-3"></i>Posted by @{{ j.posted_by.first_name }} {{ j.posted_by.last_name }}</p>
+                    <p><i class="fa fa-check-circle text-primary me-3"></i>Last updated at {{ j.updated_at }}</p>
+                    <h6 class="text-primary">Dated on : {{ j.created_at }}</h6>
+                  
+                    
+                </div>
+                {% if user.role == "ADMIN" %}
+                  <span class="float-end"><a href="{% url 'delblog' j.id %}" onclick="return confirm('Are you surly want to remove {{ j.title }}' )" class="btn btn-danger">Delete Post</a></i> </span>
+                {% endif %}
+            </div>
+          {% else %}
+
+          
+        <div class="col-lg-6 about-text py-5 wow fadeIn" data-wow-delay="0.5s">
+          
+            <div class="p-lg-5 pe-lg-0">
+                
+                <h1 class="mb-4">{{ j.title }}</h1>
+                <p>{{ j.updates }}</p>
+                <p><i class="fa fa-check-circle text-primary me-3"></i>Posted by @{{ j.posted_by.first_name }} {{ j.posted_by.last_name }}</p>
+                <p><i class="fa fa-check-circle text-primary me-3"></i>Last updated at {{ j.updated_at }}</p>
+                <h6 class="text-primary">Dated on : {{ j.created_at }}</h6>
+              
+                
+            </div>
+            {% if user.role == "ADMIN" %}
+              <span class="float-end"><a href="{% url 'delblog' j.id %}" onclick="return confirm('Are you surly want to remove {{ j.title }}' )" class="btn btn-danger">Delete Post</a></i> </span>
+            {% endif %}
+        </div>
+        <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.1s" style="min-height: 400px;">
+          <div class="position-relative h-100">
+              <img class="position-absolute img-fluid w-100 h-100" src="{{ j.site_pic.url }}" style="object-fit: cover;" alt="">
+          </div>
+      </div>
+          {% endif %} 
+        </div>
+    </div>
+  </div>
+
+  {% endfor %}    
+
+
+            
+
+
+
+
+<!-- Projects End -->
+
+
+      
+
+     
+
+      
+         
+
+
+
+{% endblock content2%}

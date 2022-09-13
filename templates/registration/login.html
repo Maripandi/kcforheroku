@@ -1,0 +1,47 @@
+{% extends 'base/pageheader.html' %}
+{% load static %}
+{% block title %} | blog | Login{% endblock title %}
+{% block page_header %} Login{% endblock page_header %}
+{% block page_header_name %} login{% endblock page_header_name %}
+{% block content2 %}
+
+
+
+<section class ="py-4 my-5">
+    <div class="container">
+        <h1 class="text-success text-center">Login</h1>
+        
+        <div class="row">
+            <div class="col-3">
+                
+            </div>
+            <div class="col-6">
+                
+                <form method="post" action="" autocomplete="off">
+                    {% csrf_token %}
+                    
+                        <div class="mb-3">
+                          <label for="" class="form-label">User Name:</label>
+                          <input type="text" class="form-control" name="username" id="username" placeholder="Enter the username">
+                        </div>
+                       
+                   
+                    <div class="mb-3">
+                      <label for="" class="form-label">Password</label>
+                      <input type="password"
+                        class="form-control" name="password" id="password" placeholder="Enter the password">
+                    </div>
+                        
+                      
+                   
+                    
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+            <div class="col-3">
+                {% include 'base/msg.html' %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content2 %}

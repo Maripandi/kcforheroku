@@ -1,0 +1,137 @@
+{% extends 'users/admin/admin_home.html' %}
+{% load static %}
+{% block content4 %}
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Employee Details</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="post" action='{% url 'employees' %}' enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p>{{ data2.username.label_tag }} {{ data2.username }} </p>
+                            <p>{{ data2.email.label_tag }} {{ data2.email }}</p>
+                            <p>{{ data2.first_name.label_tag  }} {{ data2.first_name }} </p>
+                            <p>{{ data2.last_name.label_tag  }} {{ data2.last_name }} </p>
+                            <p>{{ data2.password1.label_tag  }} {{ data2.password1 }}</p>
+                            <p>{{ data2.password2.label_tag  }} {{ data2.password2 }} </p>
+                            <p>{{ data2.emp_phon.label_tag  }} {{ data2.emp_phon }} </p>
+                        
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <p> {{ data2.emp_address.label_tag  }} {{ data2.emp_address }} </p>
+                            <p> {{ data2.profile_pic.label_tag }} {{ data2.profile_pic}} </p>
+
+                            <h5 class="h5 text-center">**important**</h5>
+                                    <img class="img-fluid" src="{% static 'asserts/img/3x4image.jpg' %}" alt="3:4">
+                                
+                                    <p> &nbsp;* While uploading <b>Proile pictures</b> please make sure your picture should be is <b>3:4</b> in portrait.</p>
+                                
+                                <p>&nbsp;* If not please crop it for better viewing Experience...</p>
+                                    <p class="text-center"> Thank you !! </p> 
+                        </div>  
+                    </div>
+                    <div class="row my-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- Team Start -->
+<div class="container-xxl py-5">
+    <div class="container">
+        <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
+            <h6 class="text-primary">Team Member</h6>
+            <h1 class="mb-4">Experienced Team Members</h1>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Add new Employee
+            </button>
+        </div>
+        <div class="row g-4">
+            {% for i in data3 %}
+
+            <div class="col-lg-4 col-md-6 wow fadeInUp " data-wow-delay="0.{{ forloop.counter }}s">
+                <div class="team-item rounded overflow-hidden h-100">
+                    <div class="d-flex">
+                        <img class="img-fluid w-75" src="{{ i.profile_pic.url }}" alt="userprofilepic">
+                        <div class="team-social w-25">
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-instagram"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg-square btn-outline-info rounded-circle mt-3" href=""><i class="bi bi-pencil"></i></a>
+                            <a class="btn btn-lg-square btn-outline-danger rounded-circle mt-3" href="{% url 'delemployees' i.user.id %}" onclick="return confirm('Are you surly want to remove {{ i.user.username }}' )"><i class="fa fa-trash"></i></a>
+                            
+                           
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h5>{{ i.user.first_name }} {{i.user.last_name }} - <span>{{ i.user.username }}</span></h5>
+                        <span>Employee <i>@kalamConstruction</i></span><br>
+                        <span>{{ i.emp_phon }}</span><br/>
+                        <span>{{ i.user.email }}</span>
+                        <pre>Address :{{ i.emp_address }}</pre>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+           
+            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                <div class="team-item rounded overflow-hidden">
+                    <div class="d-flex">
+                        <img class="img-fluid w-75" src="{% static 'asserts/img/team-3.jpg' %}" alt="">
+                        <div class="team-social w-25">
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-twitter"></i></a>
+                            <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h5>Maripandi P</h5>
+                        <span>Developer</span><br/>
+                        <span>9043735730</span><br/>
+                        <span>maripandi421@gmail.com</span>
+                        <pre>xxxxx
+yyyyyy
+zzzzzz
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Team End -->
+
+<script>
+    const nodes = document.querySelectorAll('.amt');
+    const arr = Array.from(nodes);
+    const res = arr.reduce((acc,curr) => {
+        return acc += Number(curr.textContent)<script>
+            const nodes = document.querySelectorAll('.amt');
+            const arr = Array.from(nodes);
+            const res = arr.reduce((acc,curr) => {
+                return acc += Number(curr.textContent)
+            }, 0);
+            document.getElementById("net").innerHTML="Rs : "+res;
+        </script>
+    }, 0);
+    document.getElementById("net").innerHTML="Rs : "+res;
+</script>
+{% endblock content4 %}
