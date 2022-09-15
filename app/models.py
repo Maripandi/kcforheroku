@@ -162,9 +162,15 @@ class Blog(models.Model):
 # >>> Employee.objects.create_user(username='emp1',password='ou88700',email='emp1@gm.com')
 # <Employee: emp1>
 
-
+#postgresql
 #admin
 #Ad@pass1
+
+
+#sqlilte3
+#mari
+#1234
+
 
 
 

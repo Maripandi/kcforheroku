@@ -27,7 +27,8 @@ SECRET_KEY = "django-insecure-hv*^wpws)xsts5ijrdnjn+t#a3c5$=7(u^+q4njr*t4t_!(8=c
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['kcikp.herokuapp.com']
+# ALLOWED_HOSTS = ['kcikp.herokuapp.com'] #heroku
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -78,25 +79,15 @@ WSGI_APPLICATION = "Kalamconst.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         # "ENGINE": "django.db.backends.mysql",
-#         # "NAME": "kalamconst",
-#         # "USER": "root",
-#         # "PASSWORD": "systems",
-#         # "HOST": "localhost",
-#         # "PORT": "3306",
-
-
-
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR/'db.sqlite3'
-
-#     }
-# }
-
 DATABASES = {
     "default": {
+        # "ENGINE": "django.db.backends.mysql",
+        # "NAME": "kalamconst",
+        # "USER": "root",
+        # "PASSWORD": "systems",
+        # "HOST": "localhost",
+        # "PORT": "3306",
+
         "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": "dfcgm4hrg4htd1",
         "USER": "ygarkaaxlfjxac",
@@ -104,8 +95,23 @@ DATABASES = {
         "HOST": "ec2-52-207-90-231.compute-1.amazonaws.com",
         "PORT": "5432",
 
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': BASE_DIR/'db.sqlite3'
+
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql_psycopg2",
+#         "NAME": "dfcgm4hrg4htd1",
+#         "USER": "ygarkaaxlfjxac",
+#         "PASSWORD": "760f6d76353a97edf5163736f2995219fad8972790e56591fbb7320361eb5c71",
+#         "HOST": "ec2-52-207-90-231.compute-1.amazonaws.com",
+#         "PORT": "5432",
+
+#     }
+# }
 
 
 

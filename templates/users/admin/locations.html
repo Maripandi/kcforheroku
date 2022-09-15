@@ -44,7 +44,7 @@
 </div>
 
 
-<!-- Team Start -->
+<!-- Location Start -->
 <div class="container-xxl py-5">
     <div class="container">
         <div class="text-center mx-auto mb-5 wow fadeInUp" data-wow-delay="0.1s" style="max-width: 600px;">
@@ -58,7 +58,7 @@
             {% for i in d1 %}
 
              <div class="card mx-auto wow fadeInUp" style="width: 20rem;">
-                <img class="card-img-top" src="{{ i.site_pic.url }}" alt="Card image cap">
+                <img class="card-img-top" src="{{ i.site_pic.url }}" alt="site picture">
                 <div class="card-body text-center">
                   <h5 class="card-title">{{ i.location }}</h5>
                   <p class="card-text">{{ i.project.pname }}</p>
@@ -76,7 +76,7 @@
         </div>
     </div>
 </div>
-<!-- Team End -->
+<!-- Location End -->
 
 
 {% endblock content4 %}

@@ -8,11 +8,11 @@ import os
 # Create your views here.
 
 
-projects=ProjectLocations.objects.all()
-pcategory=ProjectCategory.objects.all()
+# projects=ProjectLocations.objects.all()
+# pcategory=ProjectCategory.objects.all()
 def home(request):
-    # projects=ProjectLocations.objects.all()
-    # pcategory=ProjectCategory.objects.all()
+    projects=ProjectLocations.objects.all()
+    pcategory=ProjectCategory.objects.all()
     context={
         'data1':projects,
         'data3':pcategory
@@ -150,7 +150,7 @@ def delemployees(request,id):
     return redirect('employees')
 
 def projectcategories(request):
-    # projects=ProjectCategory.objects.all()
+    projects=ProjectCategory.objects.all()
     if request.method == 'POST':
         form=ProjectCategoryForm(request.POST, request.FILES)
         if form.is_valid():
@@ -172,7 +172,7 @@ def projectcategories(request):
     context={
         
         'd2':form,
-        'd1':pcategory
+        'd1':projects
     }
     return render(request,'users/admin/projects.html',context)
 
@@ -219,7 +219,7 @@ def deleteprojectcategory(request,id):
     return redirect('projectcategories')
 
 def projectlocations(request): #projectlocations
-    # cproject=ProjectLocations.objects.all()
+    cproject=ProjectLocations.objects.all()
     if request.method == 'POST':
         form=ProjectLocationForm(request.POST, request.FILES)
         if form.is_valid():
@@ -238,7 +238,7 @@ def projectlocations(request): #projectlocations
         form=ProjectLocationForm()
 
     context={
-        'd1':projects,
+        'd1':cproject,
         'd2':form
     }
     return render(request,'users/admin/locations.html',context)
@@ -286,11 +286,11 @@ def blog(request):
     myform=BlogPostForm()
     if request.method=='GET':
         post=Blog.objects.all().order_by('-id')
-        # projects=ProjectCategory.objects.all()
+        projects=ProjectCategory.objects.all()
         context={
             'data':post,
             'data2':myform,
-            'data3':pcategory
+            'data3':projects
         }
         return render(request, "blog.html",context)
 def delblog(request,id):
@@ -321,9 +321,9 @@ def about(request):
 
 
 def services(request):
-    # services=ProjectCategory.objects.all()
+    services=ProjectCategory.objects.all()
     context={
-        'data1':pcategory
+        'data1':services
     }
     return render(request, "services.html",context)
 
