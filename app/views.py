@@ -15,7 +15,8 @@ def home(request):
     pcategory=ProjectCategory.objects.all()
     context={
         'data1':projects,
-        'data3':pcategory
+        'data3':pcategory,
+        'data2':projects.count()
     }
     return render(request, "index.html",context)
 # def login_page(request):
