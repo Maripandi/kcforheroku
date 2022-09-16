@@ -9,25 +9,32 @@
     {% csrf_token %}
     <div class="row">
         <div class="col-md-6">
+            <div class="mb-3">
+              <label for="" class="form-label">Project Name</label>
+              <input type="text" required name="pname" id="pname" class="form-control" value="{{ d1.pname }}" maxlength="100">
+              
+            </div>
+            <div class="mb-3">
+                {% if d1.ppic %}
+                    <img class="img-thumbnail" src="{{ d1.ppic.url }}" alt="{{ d1.pname }} picture">
+                {% endif %}
             
-        
-        {{ d2.as_p }}
-        </div>
-        <div class="col-md-6">
-           
-            <h5 class="h5 text-center">**important**</h5>
-            <img class="img-fluid" src="{% static 'asserts/img/4x3image.jpg' %}" alt="3:4">
-            <p> &nbsp;* 'While uploading <b>Project pictures</b> please make sure your picture should be is <b>4:3</b> in landscape. <br>&nbsp;* If not please crop it for better viewing Experience...</p>
-            <p class="text-center"> Thank you !! '</p>
-            
+              <label for="" class="form-label"></label>
+              <input type="file" class="form-control" name="ppic" id="ppic">
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label"></label>
+              <textarea required name="pdescription" cols="40" rows="3" class="form-control" maxlength="500" id="id_pdescription">{{ d1.pdescription}}</textarea>
                 
-                   
-
-        </div>  
+              
+            </div>
+            <div class="row my-3">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div> 
+        </div>
+          
     </div>
-    <div class="row my-3">
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
+    
 </form>
 
 {% endblock content4 %}

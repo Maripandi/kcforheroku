@@ -34,7 +34,7 @@ urlpatterns = [
 
     
     path('projectcategories',views.projectcategories,name='projectcategories'),
-    path('editprojectcategories/<int:id>',views.editprojectcategories,name='editprojectcategories'),
+    path('editprojectcategories/<str:pk>',views.editprojectcategories,name='editprojectcategories'),
     path('deleteprojectcategory/<int:id>',views.deleteprojectcategory,name='deleteprojectcategory'),
 
 

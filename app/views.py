@@ -13,10 +13,13 @@ import os
 def home(request):
     projects=ProjectLocations.objects.all()
     pcategory=ProjectCategory.objects.all()
+    experts=AdminProfile.objects.all().count() + EmployeeProfile.objects.all().count()
     context={
         'data1':projects,
         'data3':pcategory,
-        'data2':projects.count()
+        'data2':projects.count(),
+        'data4':experts
+        
     }
     return render(request, "index.html",context)
 # def login_page(request):
@@ -176,46 +179,64 @@ def projectcategories(request):
         'd1':projects
     }
     return render(request,'users/admin/projects.html',context)
-
-def editprojectcategories(request,id):
-    projects=ProjectCategory.objects.get(id=id)
-    # initial={
-    #     'pname':projects.pname,
-    #     'ppic':projects.ppic,
-    #     'pdescription':projects.pdescription
-    # }
+def editprojectcategories(request,pk):
+    p1=ProjectCategory.objects.get(id=pk)
     if request.method == 'POST':
-        form=ProjectCategoryForm(
-            request.POST or None, 
-            request.FILES, 
-            # initial=initial
-            instance=projects
-            )
-        if form.is_valid():
-            # form.save()
-            s1=ProjectCategory.objects.get(id=id)
-            s1.pname=form.cleaned_data.get('pname'),
-            s1.ppic=request.FILES.get('ppic'),
-            s1.pdescription=form.cleaned_data.get('pdescription')
-            
-            s1.save()
+        if 1-1==0:
+            if len(request.FILES) != 0:
+                if p1.ppic and len(p1.ppic) > 0:
+                    os.remove(p1.ppic.path)
+                p1.ppic= request.FILES['ppic']
+            p1.pname = request.POST.get('pname')
+            p1.pdescription = request.POST.get('pdescription')
+            p1.save()
             messages.success(request,'success')
+            return redirect('projectcategories')
         else:
             # print('Form error : ',form.errors)
             messages.error(request,'error')
-    else:
-        form=EditProjectCategoryForm()
     context={
-        
-        'd2':form,
-        'd1':projects
+        'd1':p1
     }
     return render(request,'users/admin/editprojects.html',context)
+# def editprojectcategories(request,id):
+#     projects=ProjectCategory.objects.get(id=id)
+#     if request.method == 'POST':
+#         form=ProjectCategoryForm(
+#             request.POST or None, 
+#             request.FILES, 
+#             # initial=initial
+#             instance=projects
+#             )
+#         if form.is_valid():
+#             # form.save()
+#             s1=ProjectCategory.objects.get(id=id)
+#             s1.pname=form.cleaned_data.get('pname'),
+#             s1.ppic=request.FILES.get('ppic'),
+#             s1.pdescription=form.cleaned_data.get('pdescription')
+            
+#             s1.save()
+#             messages.success(request,'success')
+#         else:
+#             # print('Form error : ',form.errors)
+#             messages.error(request,'error')
+#     else:
+#         form=EditProjectCategoryForm()
+#     context={
+        
+#         'd2':form,
+#         'd1':projects
+#     }
+#     return render(request,'users/admin/editprojects.html',context)
 
 def deleteprojectcategory(request,id):
     projects=ProjectCategory.objects.get(id=id)
-    os.remove(projects.ppic.path)
-    projects.delete()
+    if projects.ppic:
+        try:
+            os.remove(projects.ppic.path)
+            projects.delete()
+        except:
+            projects.delete()
     messages.success(request,'deleted')
     return redirect('projectcategories')
 
