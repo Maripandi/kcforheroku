@@ -99,7 +99,12 @@
                 {% if i.add_home %}
                     <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
                         <div class="service-item rounded overflow-hidden">
+                            {% if i.ppic == True %}
                             <img class="img-fluid" src="{{ i.ppic.url }}" alt="">
+                            {% else %}
+                            <img class="img-fluid" src="{% static 'asserts/img/image_deleted.jpg' %}" alt="image deleted">
+                            {% endif %}
+                            
                             <div class="position-relative p-4 pt-0">
                                 <div class="service-icon">
                                     <i class="{{ i.icon }} fa-4x"></i>
@@ -234,11 +239,15 @@
 
 
             {% for i in data1 %}
-                {% if i.site_pic != None %}
+                
                 <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first{{ i.project.id }}">
                     <div class="border border-primary">
                         <div class="portfolio-img overflow-hidden">
+                            {% if i.site_pic == True %}
                             <img class="img-fluid" src="{{ i.site_pic.url }}" alt="">
+                            {% else %}
+                            <img class="img-fluid" src="{% static 'asserts/img/image_deleted.jpg' %}" alt="image deleted">
+                            {% endif %}
                             <div class="portfolio-btn">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="{% static 'asserts/img/img-600x400-6.jpg' %}" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
@@ -251,7 +260,7 @@
                         </div>
                     </div>
                 </div>
-                {% endif %}
+                
             {% endfor %}
             {% comment %} <div class="col-lg-4 col-md-6 portfolio-item third">
                 <div class="portfolio-img rounded overflow-hidden">

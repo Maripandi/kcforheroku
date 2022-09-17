@@ -148,8 +148,14 @@ def employees(request):
 def delemployees(request,id):
     delusr=User.objects.get(id=id)
     delpic=EmployeeProfile.objects.get(pk=id)
-    os.remove(delpic.profile_pic.path)
-    delusr.delete()
+    if delpic.profile_pic: #for heroku
+        try:
+            os.remove(delpic.profile_pic.path)
+            delusr.delete()
+        except:
+            delusr.delete()
+    # os.remove(delpic.profile_pic.path)
+    # delusr.delete()
     messages.success(request,'User Deleted')
     return redirect('employees')
 
@@ -231,12 +237,14 @@ def editprojectcategories(request,pk):
 
 def deleteprojectcategory(request,id):
     projects=ProjectCategory.objects.get(id=id)
-    if projects.ppic:
+    if projects.ppic: #for heroku
         try:
             os.remove(projects.ppic.path)
             projects.delete()
         except:
             projects.delete()
+    # os.remove(projects.ppic.path)
+    # projects.delete()
     messages.success(request,'deleted')
     return redirect('projectcategories')
 
@@ -267,8 +275,14 @@ def projectlocations(request): #projectlocations
 
 def delprojectlocations(request, id):
     projects=ProjectLocations.objects.get(id=id)
-    os.remove(projects.site_pic.path)
-    projects.delete()
+    if projects.site_pic: #for heroku
+        try:
+            os.remove(projects.site_pic.path)
+            projects.delete()
+        except:
+            projects.delete()
+    # os.remove(projects.site_pic.path)
+    # projects.delete()
     messages.success(request,'deleted')
     return redirect('locations')
 
