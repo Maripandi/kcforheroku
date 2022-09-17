@@ -1,3 +1,4 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from app.forms import BlogPostForm,AdminProfileForm,EmployeeProfileForm,ProjectCategoryForm,ProjectLocationForm,EditProjectCategoryForm
 from app.models import *
@@ -13,12 +14,14 @@ import os
 def home(request):
     projects=ProjectLocations.objects.all()
     pcategory=ProjectCategory.objects.all()
-    experts=AdminProfile.objects.all().count() + EmployeeProfile.objects.all().count()
+    admins=AdminProfile.objects.all()
+    experts=admins.count() + EmployeeProfile.objects.all().count()
     context={
         'data1':projects,
         'data3':pcategory,
         'data2':projects.count(),
-        'data4':experts
+        'data4':experts,
+        'data5':admins,
         
     }
     return render(request, "index.html",context)
@@ -81,6 +84,8 @@ def admins(request):
             user.admin_phon=form3.cleaned_data.get('admin_phon')
             user.admin_address=form3.cleaned_data.get('admin_address')
             user.profile_pic=request.FILES.get('profile_pic')
+            user.add_to_home=form3.cleaned_data.get('add_to_home')
+            user.add_to_about=form3.cleaned_data.get('add_to_about')
             user.save()
             # print(user,'form saved')
             messages.success(request,'Successfully added Admin')
@@ -104,8 +109,14 @@ def editadmin(request, id):
 def deladmins(request,id):
     delusr=User.objects.get(id=id)
     delpic=AdminProfile.objects.get(pk=id)
-    os.remove(delpic.profile_pic.path)
-    delusr.delete()
+    if delpic.profile_pic: #for heroku
+        try:
+            os.remove(delpic.profile_pic.path)
+            delusr.delete()
+        except:
+            delusr.delete()
+    # os.remove(delpic.profile_pic.path)
+    # delusr.delete()
     messages.success(request,'User Deleted')
     return redirect('admins')
 
@@ -127,6 +138,7 @@ def employees(request):
             user.emp_phon=form2.cleaned_data.get('emp_phon')
             user.emp_address=form2.cleaned_data.get('emp_address')
             user.profile_pic=request.FILES.get('profile_pic')
+            user.add_to_about=form2.cleaned_data.get('add_to_about')
             user.save()
             messages.success(request,'Successfully added Employee')
             return redirect('employees')
@@ -353,7 +365,15 @@ def contact_us(request):
 
 
 def about(request):
-    return render(request, "about.html")
+    admins=AdminProfile.objects.filter(add_to_about=1)
+    employees=EmployeeProfile.objects.filter(add_to_about=1)
+    context={
+        'data1':employees.count(),
+        'data2':admins.count(),
+        'data3':employees,
+        'data4':admins,
+    }
+    return render(request, "about.html",context)
 
 
 def services(request):

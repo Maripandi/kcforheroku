@@ -78,6 +78,8 @@ class AdminProfile(models.Model):
     admin_phon=models.CharField(max_length=13,null=True,blank=False)
     profile_pic=models.ImageField(upload_to=getFileName,null=True,blank=True)
     admin_address= models.TextField(max_length=300,null=True,blank=False)
+    add_to_home=models.BooleanField(null=True, blank=False)
+    add_to_about=models.BooleanField(null=True, blank=False)
 
     def __str__(self):
         return self.user.username
@@ -92,6 +94,7 @@ class EmployeeProfile(models.Model):
     emp_phon=models.CharField(max_length=13,null=True,blank=False)
     profile_pic=models.ImageField(upload_to=getFileName,null=True,blank=True)
     emp_address= models.TextField(max_length=300,null=True,blank=False)
+    add_to_about=models.BooleanField(null=True, blank=False)
 
     def __str__(self):
         return self.user.username
@@ -106,6 +109,8 @@ class CustomerProfile(models.Model):
     emp_phon=models.CharField(max_length=13,null=True,blank=False)
     # profile_pic=models.ImageField(upload_to=getFileName,null=True,blank=True)
     emp_address= models.TextField(max_length=300,null=True,blank=False)
+    add_to_home=models.BooleanField(null=True, blank=False)
+    add_to_about=models.BooleanField(null=True, blank=False)
 
     def __str__(self):
         return self.user.username

@@ -85,7 +85,7 @@
         {% for i in data %}
           <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first{{ i.category.project.id }}" data-wow-delay="0.{{ forloop.counter }}s"> 
               <div class="portfolio-img rounded overflow-hidden"><span class="float-end">Dated on {{ i.created_at }}</span>
-                  <img class="img-fluid" src="{{ i.site_pic.url }}" alt="">
+                  <img class="img-fluid" src="{{ i.site_pic.url }}" onerror="this.onerror=null;this.src='{% static 'asserts/img/image_deleted.jpg' %}';" alt="{{ i.title }} picture">
                   <div class="portfolio-btn">
                       <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" data-toggle="modal" data-target="#exampleModal{{ i.id }}" href=""><i class="fa fa-eye"></i></a>
                     {% if user.role == "ADMIN" %}

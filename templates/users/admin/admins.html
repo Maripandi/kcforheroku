@@ -17,26 +17,31 @@
                 <form method="post" action='{% url 'admins' %}' enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-6">
                             <p>{{ data3.username.label_tag }} {{ data3.username }}</p>
                             <p>{{ data3.email.label_tag }} {{ data3.email }}</p>
                             <p>{{ data3.first_name.label_tag }} {{ data3.first_name }}</p>
                             <p>{{ data3.last_name.label_tag }} {{ data3.last_name }}</p>
                             <p>{{ data3.password1.label_tag }} {{ data3.password1 }}</p>
-                            <p>{{ data3.password2.label_tag }} {{ data3.password2 }}</p>
-                            <p>{{ data3.admin_phon.label_tag }} {{ data3.admin_phon }}</p>
+                            
 
                         </div>
-                        <div class="col-md-6">
-                           
+                        <div class="col-6">
+                            <p>{{ data3.password2.label_tag }} {{ data3.password2 }}</p>
+                            <p>{{ data3.admin_phon.label_tag }} {{ data3.admin_phon }}</p>
                             <p>{{ data3.admin_address.label_tag }} {{ data3.admin_address }}</p>
-                            <p>{{ data3.profile_pic.label_tag }} {{ data3.profile_pic}}</p>
-                            <h5 class="h5 text-center">**important**</h5>
+                            <p>{{ data3.profile_pic.label_tag }} {{ data3.profile_pic }}</p>
+                            
+                            <div class="row justify-content-center align-items-center g-2">
+                                <div class="col"><p>{{ data3.add_to_about.label_tag }} {{ data3.add_to_about }}</p></div>
+                                <div class="col"> <p>{{ data3.add_to_home.label_tag }} {{ data3.add_to_home }}</p></div>
+                            </div> 
+                            {% comment %} 
                             <img class="img-fluid" src="{% static 'asserts/img/3x4image.jpg' %}" alt="3:4">
-                            <p> &nbsp;* 'While uploading <b>Proile pictures</b> please make sure your picture should be is <b>3:4</b> in portrait.
-                            <br>&nbsp;* If not please crop it for better viewing Experience...</p>
-                            <p class="text-center"> Thank you !! </p>
-                        </div>  
+                             {% endcomment %}
+                        </div>
+                        
+                           
                     </div>
                     <div class="row my-3">
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -72,7 +77,7 @@
             <div class="col-lg-4 col-md-6 mx-auto wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
                 <div class="team-item rounded overflow-hidden">
                     <div class="d-flex">
-                        <img class="img-fluid w-75" src="{{ i.profile_pic.url }}" alt="">
+                        <img class="img-fluid w-75" src="{{ i.profile_pic.url }}" onerror="this.onerror=null;this.src='{% static 'asserts/img/admin_user.jpg' %}';" alt="admin profile picture">                    
                         <div class="team-social w-25">
                             <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-instagram"></i></a>
@@ -88,6 +93,26 @@
                         <span>Designation : xyz</span><br>
                         <span>Phone Number : {{ i.admin_phon }}</span>
                         <pre>Address :{{ i.admin_address }}</pre>
+
+                        <div class="row justify-content-center align-items-center g-2">
+                            <div class="col">
+                                {% if i.add_to_home %}
+                                    <p><i class="fa fa-check-circle text-primary me-3"></i>Home page</p>
+                                {% else %}
+                                    <p><i class="bi bi-x-circle-fill text-danger me-3"></i>Home page</p>
+                                {% endif %}
+                            </div>
+                            <div class="col">
+                                {% if i.add_to_about %}
+                                <p><i class="fa fa-check-circle text-primary me-3"></i>About page</p>
+                                {% else %}
+                                    <p><i class="bi bi-x-circle-fill text-danger me-3"></i>About page</p>
+                                {% endif %}
+                            </div>
+                            
+                        </div>
+                        
+                       
                     </div>
                 </div>
             </div>
@@ -99,6 +124,21 @@
     </div>
 </div>
 <!-- Team End -->
+<hr>
+<div class="row justify-content-center align-items-center g-2">
+    <h5 class="h5 text-center">**important**</h5>
+    <div class="col-1"></div>
+    <div class="col-3">
+        <img class="img-fluid" src="{% static 'asserts/img/3x4image.jpg' %}" alt="3:4">
+    </div>
+    <div class="col-6">
+        <p> &nbsp;* 'While uploading <b>Proile pictures</b> please make sure your picture should be is <b>3:4</b> in portrait.
+            <br>&nbsp;* If not please crop it for better viewing Experience...</p>
+            <p class="text-center"> Thank you !! </p>
+    </div> 
+    <div class="col-2"></div>
+</div>
+
 
 
 

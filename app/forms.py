@@ -7,18 +7,19 @@ from .models import *
 
 
 class CustomUserForm(UserCreationForm):
-    username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter username','name':'username'}))
-    email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control','placeholder':'your@email.com','autocomplete':'off','name':'email'}))
-    first_name=forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter the first Name of user','name':'first_name'}))
-    last_name=forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter the last Name of user','name':'last_name'}))
-    password1=forms.Field(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Enter the New password','name':'password'}))
+    username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter username'}))
+    email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control','placeholder':'your@email.com','autocomplete':'off'}))
+    first_name=forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter the first Name of user'}))
+    last_name=forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter the last Name of user'}))
+    password1=forms.Field(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Enter the New password'}))
     password2=forms.CharField(label='Confirm Password',widget=forms.PasswordInput(attrs={'class':'form-control', 'placeholder':'Enter the password again'}))
 
 
 class EmployeeProfileForm(CustomUserForm):
-    emp_phon=forms.CharField(label='Employee Phone Number',max_length=13,widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Enter the Emplyee Phone Number','name':'emp_phon'}))
-    emp_address=forms.CharField(label='Employee Address', max_length=500,widget=forms.Textarea(attrs={'class':'form-control','rows':3,'name':'emp_address'}))
-    profile_pic=forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control','name':'profile_pic'}))
+    emp_phon=forms.CharField(label='Employee Phone Number',max_length=13,widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Enter the Emplyee Phone Number'}))
+    emp_address=forms.CharField(label='Employee Address', max_length=500,widget=forms.Textarea(attrs={'class':'form-control','rows':3}))
+    profile_pic=forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control'}))
+    add_to_about=forms.BooleanField(required= False)
     class Meta:
         model=Employee
         fields=(
@@ -30,16 +31,18 @@ class EmployeeProfileForm(CustomUserForm):
                 'password2',
                 'emp_phon',
                 'emp_address',
-                'profile_pic'
+                'profile_pic',
+                'add_to_about',
                 )
 
 
 
-class AdminProfileForm(CustomUserForm):    #100% working            
-    admin_phon=forms.CharField(label='Admin Phone Number',max_length=13,widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Enter the Admin Phone Number','name':'admin_phon'}))
-    admin_address=forms.CharField(label='Admin Address', max_length=500,widget=forms.Textarea(attrs={'class':'form-control','rows':3,'name':'admin_address'}))
-    profile_pic=forms.FileField(widget=forms.FileInput(attrs={'class':'form-control','name':'profile_pic'}))
- 
+class AdminProfileForm(CustomUserForm):          
+    admin_phon=forms.CharField(label='Admin Phone Number',max_length=13,widget=forms.NumberInput(attrs={'class':'form-control','placeholder':'Enter the Admin Phone Number',}))
+    admin_address=forms.CharField(label='Admin Address', max_length=500,widget=forms.Textarea(attrs={'class':'form-control','rows':3}))
+    profile_pic=forms.FileField(widget=forms.FileInput(attrs={'class':'form-control'}))
+    add_to_home=forms.BooleanField(required= False)
+    add_to_about=forms.BooleanField(required= False)
     class Meta:
         model=Admin
         fields=(
@@ -51,13 +54,16 @@ class AdminProfileForm(CustomUserForm):    #100% working
                 'password2',
                 'admin_phon',
                 'admin_address',
-                'profile_pic'
+                'profile_pic',
+                'add_to_home',
+                'add_to_about',
+
                 )
 
 
 class BlogPostForm(forms.Form): #working
     title=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','placeholder':'Enter the title','name':'title'}))
-    project=forms.ModelChoiceField(ProjectLocations.objects.filter(is_completed=False), label='Select Project and Location',widget=forms.Select(attrs={'class':'form-control','name':'selectproject'}))
+    project=forms.ModelChoiceField(ProjectLocations.objects.filter(is_completed=False), label='Select Project and Location',widget=forms.Select(attrs={'class':'form-control'}))
     site_pic=forms.ImageField(widget=forms.FileInput(attrs={'class':'form-control'}))
     updates=forms.CharField(widget=forms.Textarea(attrs={'class':'form-control','rows':3,'placeholder':'Enter the Points'}))
 
