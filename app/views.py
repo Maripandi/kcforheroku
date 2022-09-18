@@ -62,9 +62,9 @@ def logout_view(request):
     return redirect('login')
 
 def admin_home(request):
-    admins=AdminProfile.objects.all().order_by('-user_id')
+    quote=Quotation.objects.all().order_by('-id')
     context={
-        'data':admins
+        'data':quote
     }
     return render(request,'users/admin/admin_home.html',context)
 
@@ -338,7 +338,8 @@ def blog(request):
         context={
             'data':post,
             'data2':myform,
-            'data3':projects
+            'data3':projects,
+            'data4':post.count(),
         }
         return render(request, "blog.html",context)
 def delblog(request,id):
@@ -360,8 +361,38 @@ def blogview(request,id):
 
 
 def contact_us(request):
-
+    if request.method == 'POST':
+        name=request.POST.get('name')
+        q1=Quotation.objects.create(
+            name=name,
+            email=request.POST.get('email'),
+            phone=request.POST.get('phone'),
+            service=request.POST.get('service'),
+            note=request.POST.get('note'),
+            response=False
+        )
+        q1.save()
+        messages.success(request,'Thank you for your Interest we will contact you soon...!')
     return render(request, "contactus.html")
+
+# def quotation(request):
+#     if request.method == 'POST':
+#         q1=Quotation.objects.create(
+#             name=request.POST.get('name'),
+#             email=request.POST.get('email'),
+#             phone=request.POST.get('phone'),
+#             service=request.POST.get('service'),
+#             note=request.POST.get('note'),
+#             response=False
+#         )
+#         q1.save()
+#         messages.success(request,'success')
+#     else:
+#         messages.error(request,'something went wrong')
+#     context={
+#         'd1':'p1'
+#     }
+#     return render(request,'users/admin/admin_home/successmessage.html',context)
 
 
 def about(request):

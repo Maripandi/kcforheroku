@@ -45,5 +45,6 @@ urlpatterns = [
     path("about", views.about, name="about"),
     path("services", views.services, name="services"),
     path("contact_us", views.contact_us, name="contactus"),
+    # path('quotation',views.quotation, name='quotation'),
     
 ]

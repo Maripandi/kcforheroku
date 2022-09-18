@@ -1,6 +1,10 @@
 
 
 
+import email
+from operator import mod
+from turtle import position
+from urllib import response
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from django.db.models.signals import post_save
@@ -80,6 +84,8 @@ class AdminProfile(models.Model):
     admin_address= models.TextField(max_length=300,null=True,blank=False)
     add_to_home=models.BooleanField(null=True, blank=False)
     add_to_about=models.BooleanField(null=True, blank=False)
+    # qualification=models.CharField(null=True, blank=False)
+    # position=models.CharField(null=True, blank=False)
 
     def __str__(self):
         return self.user.username
@@ -143,7 +149,7 @@ class ProjectLocations(models.Model):
 
     def __str__(self):
         # return f'{self.project.pname}'+ ' at '+ f'{self.location}'
-        return self.project.pname + ' work at '+ self.location
+        return self.project.pname + ' at '+ self.location
 
 
 
@@ -158,6 +164,18 @@ class Blog(models.Model):
     updated_at=models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title
+
+class Quotation(models.Model):
+    name=models.CharField(max_length=100)
+    email=models.EmailField(max_length=254)
+    phone=models.CharField(max_length=13)
+    service=models.CharField(max_length=100)
+    note=models.TextField(max_length=800)
+    created_at=models.DateTimeField(auto_now_add=True)
+    response=models.BooleanField()
+
+    def __str__(self):
+        return self.name
 
 ##ORM##
 # (Kalam-Venv) PS C:\Kalam Construction\KalamConstruction\Project\Kalamconst> python manage.py shell

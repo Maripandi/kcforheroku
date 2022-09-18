@@ -1,5 +1,7 @@
 #from fileinput import FileInput
 
+from dataclasses import field
+from statistics import quantiles
 from django import forms
 
 from django.contrib.auth.forms import UserCreationForm,UserChangeForm
@@ -140,6 +142,23 @@ class ProjectLocationForm(forms.Form): #projectlocations
             'site_pic',
             'is_completed'
         )
+
+# class QuotationForm(forms.Form):
+#     name=forms.CharField(max_length=100, required=False)
+#     email=forms.EmailField(required=False)
+#     phone=forms.CharField(max_length=13, required=False)
+#     service=forms.ModelChoiceField(ProjectCategory.objects.all(),required=False,widget=forms.Select(attrs={'class':'form-control'}))
+#     note=forms.CharField(required=False,widget=forms.Textarea(attrs={'class':'form-control','rows':3,'placeholder':'Enter the Points'}))
+#     class Meta:
+#         model=Quotation
+#         fields=(
+#             'name',
+#             'email',
+#             'phone',
+#             'service',
+#             'note',
+
+#         )
 
 class CustomUserChangeForm(UserChangeForm):
     username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control','name':'username'}))

@@ -20,7 +20,7 @@
             {% for i in data1 %}
             <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.{{ forloop.counter }}s">
                 <div class="service-item rounded overflow-hidden">
-                    <img class="img-fluid" src="{{ i.ppic.url }}" alt="">
+                    <img class="img-fluid" src="{{ i.ppic.url }}" onerror="this.onerror=null;this.src='{% static 'asserts/img/image_deleted.jpg' %}';" alt="{{ i.pname }} picture">
                     <div class="position-relative p-4 pt-0">
                         <div class="service-icon">
                             <i class="{{ i.icon }} fa-4x"></i>
