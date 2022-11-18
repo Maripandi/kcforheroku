@@ -82,7 +82,7 @@
                             <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-twitter"></i></a>
                             <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-instagram"></i></a>
                             <a class="btn btn-lg-square btn-outline-primary rounded-circle mt-3" href=""><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-lg-square btn-outline-info rounded-circle mt-3" href=""><i class="bi bi-pencil"></i></a>
+                            <a class="btn btn-lg-square btn-outline-info rounded-circle mt-3" href="{% url 'editadmin'  i.user.id %}"><i class="bi bi-pencil"></i></a>
                             <a class="btn btn-lg-square btn-outline-danger rounded-circle mt-3" href="{% url 'deladmins' i.user.id %}" onclick="return confirm('Are you surly want to remove {{ i.user.username }}' )"><i class="fa fa-trash"></i></a>
                             
                            
@@ -93,7 +93,6 @@
                         <span>Designation : xyz</span><br>
                         <span>Phone Number : {{ i.admin_phon }}</span>
                         <pre>Address :{{ i.admin_address }}</pre>
-
                         <div class="row justify-content-center align-items-center g-2">
                             <div class="col">
                                 {% if i.add_to_home %}
@@ -109,17 +108,11 @@
                                     <p><i class="bi bi-x-circle-fill text-danger me-3"></i>About page</p>
                                 {% endif %}
                             </div>
-                            
                         </div>
-                        
-                       
                     </div>
                 </div>
             </div>
             {% endfor %}
-            
-            
-            
         </div>
     </div>
 </div>

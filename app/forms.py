@@ -161,9 +161,17 @@ class ProjectLocationForm(forms.Form): #projectlocations
 #         )
 
 class CustomUserChangeForm(UserChangeForm):
-    username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control','name':'username'}))
-    email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control','autocomplete':'off','name':'email'}))
-    first_name=forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control','name':'first_name'}))
-    last_name=forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control','name':'last_name'}))
-    password1=forms.Field(label='Password',widget=forms.PasswordInput(attrs={'class':'form-control','name':'password'}))
-    password2=forms.CharField(label='Confirm Password',widget=forms.PasswordInput(attrs={'class':'form-control'}))
+    username=forms.CharField(max_length=100,widget=forms.TextInput(attrs={'class':'form-control border-0','style':'height: 55px;'}))
+    email=forms.EmailField(widget=forms.EmailInput(attrs={'class':'form-control','autocomplete':'off'}))
+    first_name=forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
+    last_name=forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class':'form-control'}))
+
+
+    class Meta:
+        model=User
+        fields=(
+            'username',
+            'email',
+            'first_name',
+            'last_name',
+        )

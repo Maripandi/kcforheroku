@@ -217,16 +217,16 @@
                 </ul>
             </div>
         </div>
-        <div class="row g-4 portfolio-container" data-wow-delay="0.5s">
+        <div class="row g-4 portfolio-container wow fadeIn" data-wow-delay="0.5s">
 
 
             {% for i in data1 %}
                 
                 <div class="col-lg-4 col-md-6 wow fadeInUp portfolio-item first{{ i.project.id }}">
-                    <div class="border border-primary">
-                        <div class="portfolio-img overflow-hidden">
+                    
+                        <div class="portfolio-img rounded">
                             
-                            <img class="img-fluid" src="{{ i.site_pic.url }}" onerror="this.onerror=null;this.src='{% static 'asserts/img/image_deleted.jpg' %}';" alt="{{ i.project.pname}} at {{ i.location }} picture">
+                            <img class="img-thumbnail" src="{{ i.site_pic.url }}" onerror="this.onerror=null;this.src='{% static 'asserts/img/image_deleted.jpg' %}';" alt="{{ i.project.pname}} at {{ i.location }} picture">
                             <div class="portfolio-btn">
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href="{% static 'asserts/img/img-600x400-6.jpg' %}" data-lightbox="portfolio"><i class="fa fa-eye"></i></a>
                                 <a class="btn btn-lg-square btn-outline-light rounded-circle mx-1" href=""><i class="fa fa-link"></i></a>
@@ -237,11 +237,12 @@
                             <hr class="text-primary w-100 my-2">
                             <h5 class="lh-base mb-0"> We Are pioneers of solar & renewable energy industry </h5>
                         </div>
-                    </div>
+                    
                 </div>
                 
             {% endfor %}
-            {% comment %} <div class="col-lg-4 col-md-6 portfolio-item third">
+            {% comment %} 
+            <div class="col-lg-4 col-md-6 portfolio-item third">
                 <div class="portfolio-img rounded overflow-hidden">
                     <img class="img-fluid" src="{% static 'asserts/img/img-600x400-1.jpg' %}" alt="">
                     <div class="portfolio-btn">
@@ -257,12 +258,12 @@
             </div> {% endcomment %}
         </div>
     </div>
-</div><br><hr data-wow-delay="0.{{ data2 | add:2 }}s">
+</div><br>
 <!-- Projects End -->
 
 
 <!-- Quote Start -->
-<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0">
+<div class="container-fluid bg-light overflow-hidden my-5 px-lg-0 wow fadeIn" data-wow-delay="0.{{ data2 | add:3 }}s">
     <div class="container quote px-lg-0">
         <div class="row g-0 mx-lg-0">
             <div class="col-lg-6 ps-lg-0 wow fadeIn" data-wow-delay="0.5s" style="min-height: 400px;">

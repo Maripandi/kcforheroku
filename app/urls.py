@@ -21,7 +21,7 @@ urlpatterns = [
     
     path('admins',views.admins,name='admins'),
     path('deladmins/<str:id>',views.deladmins,name='deladmins'),
-    path('edit-admin/<str:pk>',views.editadmin,name='editadmin'),
+    path('edit-admin/<str:id>',views.editadmin,name='editadmin'),
 
     path('employees',views.employees,name='employees'),
     path('delemployees/<str:id>',views.delemployees,name='delemployees'),
@@ -39,6 +39,7 @@ urlpatterns = [
 
 
     path('locations',views.projectlocations,name='locations'),
+    path('editlocations/<int:id>',views.editprojectlocations,name='editlocations'),
     path('dellocations/<int:id>',views.delprojectlocations,name='dellocations'),
 
 

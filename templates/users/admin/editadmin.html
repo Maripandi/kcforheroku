@@ -1,7 +1,100 @@
 {% extends 'users/admin/admin_home.html' %}
-
+{% load static %}
 {% block content4 %}
 
-<p> this page under maintanance we will update it soon</p>
+
+<p class="text-danger"> This page under development stage currently not working<p>
+
+<div class="row justify-content-center align-items-center g-2">
+    
+    <form method="post" action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col">{{ d2 }}</div>
+        <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Update</button>
+    </form>
+</div>
+
+
+
+
+<div class="container-fluid bg-light overflow-hidden px-lg-0" style="margin: 6rem 0;">
+    <div class="container contact px-lg-0">
+        <div class="row g-0 mx-lg-0">
+            <div class="col-lg-8 contact-text py-5 wow fadeIn" data-wow-delay="0.5s">
+                <div class="p-lg-5 ps-lg-0">
+                    <h6 class="text-primary">{{ d1.user.username }}</h6>
+                    <h1 class="mb-4">Edit your Profile Details</h1>
+                    <form method="post" action="" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-12 col-sm-6">
+                                <label for="id_username">Username:</label>
+                                <input type="text" name="username" class="form-control border-0" required maxlength="100" style="height: 55px;" value="{{ d1.user.username }}" id="id_username">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <p>{{ d2.username.label_tag }} {{ d2.username }}</p>
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <label for="id_email">Email:</label>
+                                <input type="email" class="form-control border-0" required style="height: 55px;" name="email" value="{{ d1.user.email }}" id="id_email">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <label for="id_first_name">First name:</label>
+                                <input type="text" class="form-control border-0" required style="height: 55px;" name="first_name" value="{{ d1.user.first_name }}" id="id_first_name">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <label for="id_last_name">Last name:</label>
+                                <input type="text" class="form-control border-0" required style="height: 55px;" name="last_name" value="{{ d1.user.last_name }}" id="id_last_name">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <label for="id_admin_phon">Phone Number:</label> 
+                                <input type="text" class="form-control border-0" required style="height: 55px;" name="admin_phon" value="{{ d1.admin_phon }}" id="id_admin_phon">
+                            </div>
+                            <div class="col-12 col-sm-6">
+                                <label for="id_profile_pic">Profile pic:</label>
+                                <input type="file" class="form-control border-1" style="height: 55px;" name="profile_pic" id="id_profile_pic">
+                            </div>
+
+                            <div class="col-12">
+                                <label for="id_admin_address">Address:</label>
+                                <textarea class="form-control border-0" required name="admin_address" maxlength="500" style="height: 100px" id="id_admin_address">{{ d1.admin_address }}</textarea>
+                            </div>
+                            <div class="row justify-content-center align-items-center g-2">
+                                <div class="col form-check"> 
+                                    <p>
+                                        <label for="id_add_to_home" class="form-check-label">Add to home</label> 
+                                        <input type="checkbox" class="form-check-input" name="add_to_home" {% if d1.add_to_home %}checked{% endif %} id="add_to_home">
+                                    </p>
+                                </div>
+                                <div class="col form-check">
+                                    <p>
+                                        <label for="id_add_to_about" class="form-check-label">Add to about</label>
+                                        <input type="checkbox" class="form-check-input" name="add_to_about" {% if d1.add_to_about %} checked {% endif %} id="add_to_about">
+                                    </p>
+                                </div>
+                                
+                            </div> 
+                            <div class="col-12">
+                                <button class="btn btn-primary rounded-pill py-3 px-5" type="submit">Update</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="col-lg-4 py-5 pe-lg-0 wow fadeIn" data-wow-delay="0.5s"style="min-height: 400px;">
+                <div class="position-relative h-100">
+                    <div class="team-item rounded overflow-hidden w-75">
+                        <div class="d-flex">
+                            <img class="img-fluid" src="{{ d1.profile_pic.url }}" onerror="this.onerror=null;this.src='{% static 'asserts/img/admin_user.jpg' %}';" alt="">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 {% endblock content4 %}

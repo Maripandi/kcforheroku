@@ -1,11 +1,13 @@
-from multiprocessing import context
+
 from django.shortcuts import render, redirect
-from app.forms import BlogPostForm,AdminProfileForm,EmployeeProfileForm,ProjectCategoryForm,ProjectLocationForm,EditProjectCategoryForm
+from app.forms import *
 from app.models import *
 from django.contrib import messages
 from http.client import HTTPResponse
 from django.contrib.auth import authenticate, login, logout
 import os
+
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
 
@@ -103,8 +105,60 @@ def admins(request):
          }
     return render(request,'users/admin/admins.html',context)
 
+
+
+# @login_required
 def editadmin(request, id):
-    return render(request,'editadmin.html')
+    editusr=AdminProfile.objects.get(pk=id)
+    form=CustomUserChangeForm()
+    usr=User.objects.get(username=editusr)
+    if request.method == 'POST':
+        if 1-1==0:
+            # form=CustomUserChangeForm(request.POST, instance=request.user)
+            # if form.is_valid():
+            #     p1=form.save(commit=False)
+            #     p1.user=request.user
+            #     p1.save()
+
+                # messages.success(request,'success')
+                # return redirect('admins')
+            if len(request.FILES) != 0:
+                # if editusr.profile_pic and len(editusr.profile_pic) > 0:
+                #     os.remove(editusr.profile_pic.path)
+                # editusr.profile_pic= request.FILES['profile_pic']
+                try:
+                    if editusr.profile_pic and len(editusr.profile_pic) > 0:
+                        os.remove(editusr.profile_pic.path)
+                except:
+                    editusr.profile_pic= request.FILES['profile_pic']
+            editusr.user.username = request.POST.get('username')
+            editusr.user.first_name = request.POST.get('first_name')
+            editusr.user.last_name = request.POST.get('last_name')
+            editusr.user.email = request.POST.get('email')
+            editusr.admin_phon = request.POST.get('admin_phon')
+            editusr.admin_address = request.POST.get('admin_address')
+            if request.POST.get('add_to_home') == "on":
+                editusr.add_to_home = True
+            else:
+                editusr.add_to_home = False
+            if request.POST.get('add_to_about') == 'on':
+                editusr.add_to_about = True
+            else:
+                editusr.add_to_about = False
+            print(request.POST.get('username'))
+            editusr.save()
+            messages.success(request,'success')
+            return redirect('admins')
+        else:
+            # print('Form error : ',form.errors)
+            messages.error(request,'error')
+    else:
+        form=CustomUserChangeForm(instance=request.user)
+    context={
+        'd1':editusr,
+        'd2':form
+    }
+    return render(request,'users/admin/editadmin.html',context)
 
 def deladmins(request,id):
     delusr=User.objects.get(id=id)
@@ -284,6 +338,34 @@ def projectlocations(request): #projectlocations
         'd2':form
     }
     return render(request,'users/admin/locations.html',context)
+
+
+def editprojectlocations(request,pk):
+    p1=ProjectLocations.objects.get(id=pk)
+    if request.method == 'POST':
+        if 1-1==0:
+            if len(request.FILES) != 0:
+                try:
+                    if p1.site_pic and len(p1.site_pic) > 0:
+                        os.remove(p1.site_pic.path)
+                except:
+                    os.remove(p1.site_pic.path)
+                p1.site_pic= request.FILES['site_pic']
+            p1.location = request.POST.get('location')
+            p1.is_completed = request.POST.get('is_completed')
+            p1.project_id = request.POST.get('project_id')
+            #p1.engineer_id = request.POST.get('engineer_id')
+            p1.save()
+            messages.success(request,'success')
+            return redirect('locations')
+        else:
+            # print('Form error : ',form.errors)
+            messages.error(request,'error')
+    context={
+        'd1':p1
+    }
+    return render(request,'users/admin/editlocations.html',context)
+
 
 def delprojectlocations(request, id):
     projects=ProjectLocations.objects.get(id=id)

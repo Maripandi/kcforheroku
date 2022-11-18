@@ -1,7 +1,4 @@
 
-
-
-
 from django.db import models
 from django.contrib.auth.models import AbstractUser,BaseUserManager
 from django.db.models.signals import post_save
@@ -79,8 +76,8 @@ class AdminProfile(models.Model):
     admin_phon=models.CharField(max_length=13,null=True,blank=False)
     profile_pic=models.ImageField(upload_to=getFileName,null=True,blank=True)
     admin_address= models.TextField(max_length=300,null=True,blank=False)
-    add_to_home=models.BooleanField(null=True, blank=False)
-    add_to_about=models.BooleanField(null=True, blank=False)
+    add_to_home=models.BooleanField(null=False, blank=False, default=False)
+    add_to_about=models.BooleanField(null=False, blank=False, default=False)
     # qualification=models.CharField(null=True, blank=False)
     # position=models.CharField(null=True, blank=False)
 
